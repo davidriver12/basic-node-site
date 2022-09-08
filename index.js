@@ -1,3 +1,4 @@
+/*
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
@@ -22,3 +23,29 @@ http.createServer(function (req, res){
         return res.end();
     })}
 }).listen(8080);
+*/
+
+const express = require('express');
+const path = require('path')
+
+const app = express();
+const port = 8080;
+
+
+app.get('/', function(req,res){
+    res.sendFile(path.join(__dirname, '/index.html'));
+})
+
+app.get('/contact-me', function(req,res){
+    res.sendFile(path.join(__dirname, '/contact-me.html'));
+})
+
+app.get('/about', function(req,res){
+    res.sendFile(path.join(__dirname, '/about.html'));
+})
+
+app.all('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/404.html'));
+})
+
+app.listen(port);
